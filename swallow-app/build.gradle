@@ -1,4 +1,17 @@
 
+apply plugin: 'org.springframework.boot'
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.boot:spring-boot-starter-parent:$springBootVersion"
+    }
+}
+
 dependencies {
+    compile "ch.qos.logback:logback-classic:$logbackVersion"
+    compile "org.projectlombok:lombok:$lombokVersion"
+    compile 'org.springframework.boot:spring-boot-starter-web'
+    compile 'org.springframework.boot:spring-boot-starter-jetty'
+
     testCompile "junit:junit:$junitVersion"
 }
