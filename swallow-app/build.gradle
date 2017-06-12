@@ -8,10 +8,12 @@ dependencyManagement {
 }
 
 dependencies {
-    compile "ch.qos.logback:logback-classic:$logbackVersion"
+    compile project(':swallow-core')
+
     compile "org.projectlombok:lombok:$lombokVersion"
-    compile 'org.springframework.boot:spring-boot-starter-web'
+    compile 'org.springframework.boot:spring-boot-starter-jersey'
     compile 'org.springframework.boot:spring-boot-starter-jetty'
+    compile 'org.springframework.boot:spring-boot-starter-web'
 
     testCompile "junit:junit:$junitVersion"
 }
