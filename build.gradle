@@ -23,13 +23,21 @@ allprojects {
 
     apply plugin: 'io.spring.dependency-management'
 
+    apply plugin: 'org.springframework.boot'
+
+    ext.guavaVersion = "22.0"
     ext.junitVersion = '4.12'
     ext.lombokVersion = '1.16.16'
-    ext.springBootVersion = '1.5.3.RELEASE'
 
     [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
     sourceCompatibility = '1.8'
     targetCompatibility = '1.8'
+
+    dependencyManagement {
+        imports {
+            mavenBom "org.springframework.boot:spring-boot-starter-parent:1.5.3.RELEASE"
+        }
+    }
 
     repositories {
         mavenLocal()
@@ -42,6 +50,8 @@ allprojects {
     }
 
     dependencies {
-
+        compile "com.google.guava:guava:$guavaVersion"
+        compile "org.projectlombok:lombok:$lombokVersion"
+        testCompile "junit:junit:$junitVersion"
     }
 }

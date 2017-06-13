@@ -1,3 +1,11 @@
+
 dependencies {
-    testCompile "junit:junit:$junitVersion"
+    compile 'org.springframework.boot:spring-boot-starter'
+    compile 'org.springframework.boot:spring-boot-starter-cache'
+    compile 'javax.cache:cache-api'
+    compile 'org.ehcache:ehcache'
+    compile 'org.infinispan:infinispan-spring4-embedded'
+    compile 'org.infinispan:infinispan-jcache'
+    compile 'com.hazelcast:hazelcast'
+    compile 'com.hazelcast:hazelcast-spring'
 }

@@ -1,19 +1,8 @@
 
-apply plugin: 'org.springframework.boot'
-
-dependencyManagement {
-    imports {
-        mavenBom "org.springframework.boot:spring-boot-starter-parent:$springBootVersion"
-    }
-}
-
 dependencies {
     compile project(':swallow-core')
 
-    compile "org.projectlombok:lombok:$lombokVersion"
     compile 'org.springframework.boot:spring-boot-starter-jersey'
     compile 'org.springframework.boot:spring-boot-starter-jetty'
     compile 'org.springframework.boot:spring-boot-starter-web'
-
-    testCompile "junit:junit:$junitVersion"
 }

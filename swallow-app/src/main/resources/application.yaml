@@ -1,4 +1,8 @@
 
-
 server:
-  port: 9000
+  port: ${CONFIG.PORT}
+spring:
+  cache:
+    jcache:
+      provider: com.hazelcast.cache.HazelcastCachingProvider
+#      config: hazelcast.xml
