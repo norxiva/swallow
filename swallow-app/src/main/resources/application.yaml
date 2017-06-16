@@ -7,10 +7,23 @@ spring:
       provider: com.hazelcast.cache.HazelcastCachingProvider
 #      config: hazelcast.xml
   datasource:
-    hikari:
-      jdbc-url: jdbc:mysql://localhost:3306/swallow
-      username: root
-      password: root
-      driver-class-name: com.mysql.jdbc.Driver
+#    hikari:
+#      jdbc-url: jdbc:mysql://localhost:3306/swallow
+#      username: root
+#      password: root
+#      driver-class-name: com.mysql.jdbc.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:mysql://localhost:3306/swallow
+    username: root
+    password: root
+    driver-class-name: com.mysql.jdbc.Driver
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
 
 
