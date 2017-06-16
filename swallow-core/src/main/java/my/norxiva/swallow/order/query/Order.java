@@ -10,6 +10,7 @@ import my.norxiva.swallow.core.PaymentType;
 import my.norxiva.swallow.core.TransactionType;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Set;
 
@@ -54,16 +55,17 @@ public class Order {
     private LocalDateTime updateTime;
 
     @Column
-    private boolean batching;
+    private BigDecimal amount;
 
-    @Column(name = "batch_no", length = 64)
-    private String batchNo;
+    @Column(name = "batch_id")
+    private Long batchId;
+
+    @Column(name = "tradeId")
+    private Long tradeId;
 
     @Enumerated(EnumType.ORDINAL)
     @Column(name = "status", nullable = false)
     private OrderStatus status;
-
-
 
 //    private Set<Transaction> transactions = Sets.newHashSet();
 

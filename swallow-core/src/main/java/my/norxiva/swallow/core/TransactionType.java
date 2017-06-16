@@ -7,5 +7,7 @@ public enum TransactionType {
     CHARGE,
     PAY,
     TRANSFER,
+    BIND,
+    VERIFY,
     ;
 }
