@@ -32,16 +32,16 @@ public class Order {
     @Column(name = "merchant_id", nullable = false)
     private Long merchantId;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "channel_type", length = 32)
+    @Enumerated(EnumType.ORDINAL)
+    @Column(name = "channel_type")
     private ChannelType channelType;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "transaction_type", length = 32, nullable = false)
+    @Enumerated(EnumType.ORDINAL)
+    @Column(name = "transaction_type", nullable = false)
     private TransactionType transactionType;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "payment_type", length = 32, nullable = false)
+    @Enumerated(EnumType.ORDINAL)
+    @Column(name = "payment_type", nullable = false)
     private PaymentType paymentType;
 
     @Column(name = "order_time", nullable = false)
@@ -59,8 +59,8 @@ public class Order {
     @Column(name = "batch_no", length = 64)
     private String batchNo;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "status", length = 32, nullable = false)
+    @Enumerated(EnumType.ORDINAL)
+    @Column(name = "status", nullable = false)
     private OrderStatus status;
 
 
