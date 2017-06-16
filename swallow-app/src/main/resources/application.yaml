@@ -6,3 +6,11 @@ spring:
     jcache:
       provider: com.hazelcast.cache.HazelcastCachingProvider
 #      config: hazelcast.xml
+  datasource:
+    hikari:
+      jdbc-url: jdbc:mysql://localhost:3306/swallow
+      username: root
+      password: root
+      driver-class-name: com.mysql.jdbc.Driver
+
+

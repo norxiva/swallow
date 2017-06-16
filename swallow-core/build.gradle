@@ -2,6 +2,7 @@
 dependencies {
     compile 'org.springframework.boot:spring-boot-starter'
     compile 'org.springframework.boot:spring-boot-starter-cache'
+    compile 'org.springframework.boot:spring-boot-starter-data-jpa'
     compile 'javax.cache:cache-api'
     compile 'org.ehcache:ehcache'
     compile 'org.infinispan:infinispan-spring4-embedded'
