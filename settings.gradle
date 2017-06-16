@@ -2,4 +2,5 @@ rootProject.name = 'swallow'
 include 'swallow-core'
 include 'swallow-app'
 include 'swallow-reconciliation'
+include 'swallow-admin'
 
