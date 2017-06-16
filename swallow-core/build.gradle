@@ -9,4 +9,8 @@ dependencies {
     compile 'org.infinispan:infinispan-jcache'
     compile 'com.hazelcast:hazelcast'
     compile 'com.hazelcast:hazelcast-spring'
+
+    compile 'com.zaxxer:HikariCP'
+    compile 'mysql:mysql-connector-java'
+    compile 'org.hibernate:hibernate-java8'
 }
