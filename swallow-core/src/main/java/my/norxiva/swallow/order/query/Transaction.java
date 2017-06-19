@@ -40,6 +40,12 @@ public class Transaction {
     @Column(name = "bank_account_name")
     private String bankAccountName;
 
+    @Column(name = "reserved_phone")
+    private String reservedPhone;
+
+    @Column(name = "id_no")
+    private String idNo;
+
     @Enumerated(EnumType.ORDINAL)
     @Column(name = "account_type")
     private AccountType accountType;
@@ -63,12 +69,6 @@ public class Transaction {
     @Enumerated(EnumType.ORDINAL)
     @Column(name = "status")
     private TransactionStatus status;
-
-
-
-
-
-
 
 
 }

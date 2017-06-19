@@ -25,5 +25,17 @@ spring:
     properties:
       hibernate:
         format_sql: true
+  redis:
+    host: 192.168.100.101
+    port: 6379
+    timeout: 3000
+#endpoints:
+#  shutdown:
+#    enabled: true
+#    id: 1
+#    path: bootdown
+#management:
+#  security:
+#    enabled: false
 
 

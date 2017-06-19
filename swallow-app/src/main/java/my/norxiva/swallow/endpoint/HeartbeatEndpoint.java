@@ -1,31 +1,28 @@
 package my.norxiva.swallow.endpoint;
 
+import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
 import my.norxiva.swallow.CacheRepository;
 import my.norxiva.swallow.core.OrderStatus;
 import my.norxiva.swallow.core.PaymentType;
 import my.norxiva.swallow.core.TransactionType;
+import my.norxiva.swallow.job.TestJob;
 import my.norxiva.swallow.order.query.Order;
 import my.norxiva.swallow.order.query.OrderRepository;
-import my.norxiva.swallow.order.query.Transaction;
 import my.norxiva.swallow.util.SnowFlake;
+import net.greghaines.jesque.Job;
+import net.greghaines.jesque.client.Client;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheConfig;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 
-import javax.cache.annotation.CacheKey;
-import javax.cache.annotation.CachePut;
-import javax.cache.annotation.CacheValue;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.util.Map;
 import java.util.UUID;
 
 @Slf4j
@@ -39,13 +36,17 @@ public class HeartbeatEndpoint {
 
     private SnowFlake snowFlake;
 
+    private Client client;
+
     @Autowired
     public HeartbeatEndpoint(CacheRepository cacheRepository,
                              OrderRepository orderRepository,
-                             SnowFlake snowFlake){
+                             SnowFlake snowFlake,
+                             Client client){
         this.cacheRepository = cacheRepository;
         this.orderRepository = orderRepository;
         this.snowFlake = snowFlake;
+        this.client = client;
     }
 
     @GET
@@ -75,6 +76,29 @@ public class HeartbeatEndpoint {
 
         return Response.ok("Create Order: " + order.getId()).build();
     }
+
+    @POST
+    @Path("queue")
+    public Response queue(){
+
+        Job job = new Job();
+        job.setClassName(TestJob.class.getName());
+        Map<String, Object> map = Maps.newHashMap();
+        map.put("name", "Henry");
+        map.put("age", LocalDateTime.now().toString());
+        Map<String, Object> vars = Maps.newHashMap();
+        vars.put("params", map);
+        job.setVars(vars);
+
+        long future = System.currentTimeMillis() + 3 * 1000;
+
+        client.delayedEnqueue("swallow-queue", job, future);
+
+        log.info("delayed enqueue has been sent.");
+
+        return Response.ok("Delay queue: " + vars).build();
+    }
+
 
 
 

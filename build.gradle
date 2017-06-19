@@ -26,6 +26,7 @@ allprojects {
     apply plugin: 'org.springframework.boot'
 
     ext.guavaVersion = "22.0"
+    ext.jesqueVersion = "2.1.2"
     ext.junitVersion = '4.12'
     ext.lombokVersion = '1.16.16'
 

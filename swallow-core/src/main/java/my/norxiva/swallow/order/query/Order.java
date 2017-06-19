@@ -45,6 +45,12 @@ public class Order {
     @Column(name = "payment_type", nullable = false)
     private PaymentType paymentType;
 
+    @Column(name = "bank_account_no", length = 30)
+    private String bankAccountNo;
+
+    @Column(name = "bank_account_name")
+    private String bankAccountName;
+
     @Column(name = "order_time", nullable = false)
     private LocalDateTime orderTime;
 
@@ -67,7 +73,8 @@ public class Order {
     @Column(name = "status", nullable = false)
     private OrderStatus status;
 
-//    private Set<Transaction> transactions = Sets.newHashSet();
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "order")
+    private Set<Transaction> transactions = Sets.newHashSet();
 
 
 
