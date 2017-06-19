@@ -29,6 +29,7 @@ allprojects {
     ext.jesqueVersion = "2.1.2"
     ext.junitVersion = '4.12'
     ext.lombokVersion = '1.16.16'
+    ext.dropwizardMetricsVersion = '3.1.4'
 
     [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
     sourceCompatibility = '1.8'

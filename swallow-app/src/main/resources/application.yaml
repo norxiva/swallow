@@ -29,13 +29,17 @@ spring:
     host: 192.168.100.101
     port: 6379
     timeout: 3000
-#endpoints:
-#  shutdown:
-#    enabled: true
-#    id: 1
-#    path: bootdown
+endpoints:
+  shutdown:
+    enabled: true
+#    sensitive: false
+#    id: swallow_1
+management:
+  context-path: /actuator/api
+
 #management:
 #  security:
 #    enabled: false
+
 
 

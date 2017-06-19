@@ -5,9 +5,18 @@ dependencies {
     compile 'org.springframework.boot:spring-boot-starter-jersey'
     compile 'org.springframework.boot:spring-boot-starter-jetty'
     compile 'org.springframework.boot:spring-boot-starter-web'
-//    compile 'org.springframework.boot:spring-boot-starter-actuator'
-//    compile 'org.springframework.boot:spring-boot-starter-security'
+    compile 'org.springframework.boot:spring-boot-starter-actuator'
+    compile 'org.springframework.boot:spring-boot-starter-security'
 
 //    compile 'org.hprose:hprose-java:1.6.1'
+
+    compile "io.dropwizard.metrics:metrics-core:${dropwizardMetricsVersion}"
+    compile "io.dropwizard.metrics:metrics-annotation:${dropwizardMetricsVersion}"
+    compile "io.dropwizard.metrics:metrics-healthchecks:${dropwizardMetricsVersion}"
+    compile "io.dropwizard.metrics:metrics-json:${dropwizardMetricsVersion}"
+    compile "io.dropwizard.metrics:metrics-jetty9:${dropwizardMetricsVersion}"
+    compile "io.dropwizard.metrics:metrics-jvm:${dropwizardMetricsVersion}"
+    compile "io.dropwizard.metrics:metrics-graphite:${dropwizardMetricsVersion}"
+
 
 }

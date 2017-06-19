@@ -18,7 +18,7 @@ public class WorkerPoolBean implements DisposableBean, BeanNameAware{
 
 //    @Scheduled(initialDelay = 0, fixedRate = Long.MAX_VALUE)
     private void working(){
-        log.info("workerPoolBean[{}] started.", this.beanName);
+        log.info("workerPoolBean started.");
         new Thread(workerPool).start();
     }
 
