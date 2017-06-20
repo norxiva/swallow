@@ -11,6 +11,7 @@ import my.norxiva.swallow.core.TransactionType;
 import my.norxiva.swallow.job.TestJob;
 import my.norxiva.swallow.order.query.Order;
 import my.norxiva.swallow.order.query.OrderRepository;
+import my.norxiva.swallow.retry.RetryService;
 import my.norxiva.swallow.util.SnowFlake;
 import net.greghaines.jesque.Job;
 import net.greghaines.jesque.client.Client;
@@ -42,17 +43,21 @@ public class HeartbeatEndpoint {
 
     private TestService testService;
 
+    private RetryService retryService;
+
     @Autowired
     public HeartbeatEndpoint(CacheRepository cacheRepository,
                              OrderRepository orderRepository,
                              SnowFlake snowFlake,
                              Client client,
-                             TestService testService){
+                             TestService testService,
+                             RetryService retryService){
         this.cacheRepository = cacheRepository;
         this.orderRepository = orderRepository;
         this.snowFlake = snowFlake;
         this.client = client;
         this.testService = testService;
+        this.retryService = retryService;
     }
 
     @GET
@@ -114,6 +119,13 @@ public class HeartbeatEndpoint {
 
 //        testService.test2("norxiva2","haha2");
 
+        return Response.ok("queueAnnotation: ").build();
+    }
+
+    @POST
+    @Path("retry")
+    public Response retry(){
+        retryService.test();
         return Response.ok("queueAnnotation: ").build();
     }
 
