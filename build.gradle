@@ -18,7 +18,8 @@ version '1.0.0-SNAPSHOT'
 
 allprojects {
 
-    ext.guavaVersion = "22.0"
+    ext.axonVersion = '2.4.6'
+    ext.guavaVersion = '22.0'
     ext.jesqueVersion = "2.1.2"
     ext.junitVersion = '4.12'
     ext.lombokVersion = '1.16.16'

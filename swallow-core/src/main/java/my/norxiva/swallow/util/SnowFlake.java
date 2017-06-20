@@ -5,7 +5,7 @@ import java.util.Optional;
 @SuppressWarnings("FieldCanBeLocal")
 public class SnowFlake {
 
-    private final static long START_TIMESTAMP = 1288834974657L;
+    private final static long EPOCH = 1288834974657L;
 
     public final static long DEFAULT_WORKER_ID_BITS = 5L;
     public final static long DEFAULT_DATA_CENTER_ID_BITS = 5L;
@@ -81,7 +81,7 @@ public class SnowFlake {
             sequence = 0;
         }
         lastTimestamp = timestamp;
-        return ((timestamp - START_TIMESTAMP) << timestampLeftShift)
+        return ((timestamp - EPOCH) << timestampLeftShift)
                 | (dataCenterId << dataCenterIdShift)
                 | (workerId << workerIdShift) | sequence;
     }

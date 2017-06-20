@@ -16,4 +16,6 @@ dependencies {
     compile 'org.hibernate:hibernate-java8'
 
     compile "net.greghaines:jesque:${jesqueVersion}"
+
+    compile "org.axonframework:axon-core:${axonVersion}"
 }

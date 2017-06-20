@@ -1,13 +1,9 @@
-package my.norxiva.swallow.order.query;
+package my.norxiva.swallow.transaction.query;
 
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import my.norxiva.swallow.core.AccountType;
-import my.norxiva.swallow.core.BankAcronym;
-import my.norxiva.swallow.core.CurrencyType;
-import my.norxiva.swallow.core.TransactionStatus;
-import org.springframework.beans.factory.annotation.Value;
+import my.norxiva.swallow.core.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -17,7 +13,8 @@ import java.time.LocalDateTime;
 @Getter
 @ToString
 @Entity
-@Table(name = "payment_transaction")
+@Table(name = "payment_transaction",
+        uniqueConstraints = @UniqueConstraint(columnNames = {"channel_type", "channel_serial_no"}))
 public class Transaction {
 
     @Id
@@ -29,6 +26,31 @@ public class Transaction {
     @ManyToOne
     @JoinColumn(name = "order_id", nullable = false)
     private Order order;
+
+    @Enumerated(EnumType.ORDINAL)
+    @Column(name = "channel_type")
+    private ChannelType channelType;
+
+    @Column(name = "channel_serial_no")
+    private String channelSerialNo;
+
+    @Enumerated(EnumType.ORDINAL)
+    @Column(name = "transaction_type", nullable = false)
+    private TransactionType transactionType;
+
+    @Enumerated(EnumType.ORDINAL)
+    @Column(name = "payment_type", nullable = false)
+    private PaymentType paymentType;
+
+    @Column
+    private BigDecimal amount;
+
+    @Column(name = "account_no", length = 64)
+    private String accountNo;
+
+    @Enumerated(EnumType.ORDINAL)
+    @Column(name = "account_type")
+    private AccountType accountType;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "bank_acronym", length = 8)
@@ -47,20 +69,13 @@ public class Transaction {
     private String idNo;
 
     @Enumerated(EnumType.ORDINAL)
-    @Column(name = "account_type")
-    private AccountType accountType;
-
-    @Column
-    private BigDecimal amount;
-
-    @Enumerated(EnumType.ORDINAL)
     @Column(name = "currency_type")
     private CurrencyType currencyType;
 
-    @Column
+    @Column(name = "transaction_time", nullable = false)
     private LocalDateTime transactionTime;
 
-    @Column
+    @Column(nullable = false)
     private LocalDateTime createTime;
 
     @Column
@@ -69,6 +84,12 @@ public class Transaction {
     @Enumerated(EnumType.ORDINAL)
     @Column(name = "status")
     private TransactionStatus status;
+
+    @Column(length = 64)
+    private String code;
+
+    @Column
+    private String message;
 
 
 }

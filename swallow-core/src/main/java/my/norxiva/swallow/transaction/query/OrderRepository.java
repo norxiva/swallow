@@ -1,4 +1,4 @@
-package my.norxiva.swallow.order.query;
+package my.norxiva.swallow.transaction.query;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

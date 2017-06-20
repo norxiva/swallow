@@ -1,10 +1,8 @@
 package my.norxiva.swallow.core;
 
-public enum OrderStatus {
+public enum TradeStatus {
     CREATED,
-    APPLIED,
-    SUCCEED,
-    FAILED,
+    EXECUTING,
     CLOSED,
     ;
 }

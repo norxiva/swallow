@@ -1,8 +1,10 @@
-package my.norxiva.swallow.order.query;
+package my.norxiva.swallow.transaction.query;
+
 
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import my.norxiva.swallow.core.BatchStatus;
 
 import javax.persistence.*;
 
@@ -10,8 +12,8 @@ import javax.persistence.*;
 @Getter
 @ToString
 @Entity
-@Table(name = "payment_trade", uniqueConstraints = @UniqueConstraint(columnNames = {"no", "merchant_id"}))
-public class Trade {
+@Table(name = "payment_order_batch", uniqueConstraints = @UniqueConstraint(columnNames = {"no", "merchant_id"}))
+public class OrderBatch {
 
     @Id
     private Long id;
@@ -25,7 +27,5 @@ public class Trade {
     @Column(name = "merchant_id", nullable = false)
     private Long merchantId;
 
-
-
-
+    private BatchStatus status;
 }
