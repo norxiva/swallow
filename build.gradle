@@ -17,19 +17,22 @@ group 'my.norxiva'
 version '1.0.0-SNAPSHOT'
 
 allprojects {
-    apply plugin: 'java'
-    apply plugin: 'eclipse'
-    apply plugin: 'idea'
-
-    apply plugin: 'io.spring.dependency-management'
-
-    apply plugin: 'org.springframework.boot'
 
     ext.guavaVersion = "22.0"
     ext.jesqueVersion = "2.1.2"
     ext.junitVersion = '4.12'
     ext.lombokVersion = '1.16.16'
     ext.dropwizardMetricsVersion = '3.1.4'
+
+    apply plugin: 'java'
+    apply plugin: 'eclipse'
+    apply plugin: 'idea'
+
+//    apply plugin: 'aspectj'
+
+    apply plugin: 'io.spring.dependency-management'
+
+    apply plugin: 'org.springframework.boot'
 
     [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
     sourceCompatibility = '1.8'
@@ -54,6 +57,7 @@ allprojects {
     dependencies {
         compile "com.google.guava:guava:$guavaVersion"
         compile "org.projectlombok:lombok:$lombokVersion"
+//        compile "org.aspectj:aspectjweaver"
         testCompile "junit:junit:$junitVersion"
     }
 }

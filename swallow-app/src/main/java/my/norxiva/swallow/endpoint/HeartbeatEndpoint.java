@@ -3,6 +3,8 @@ package my.norxiva.swallow.endpoint;
 import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
 import my.norxiva.swallow.CacheRepository;
+import my.norxiva.swallow.aop.TestBean;
+import my.norxiva.swallow.aop.TestService;
 import my.norxiva.swallow.core.OrderStatus;
 import my.norxiva.swallow.core.PaymentType;
 import my.norxiva.swallow.core.TransactionType;
@@ -38,15 +40,19 @@ public class HeartbeatEndpoint {
 
     private Client client;
 
+    private TestService testService;
+
     @Autowired
     public HeartbeatEndpoint(CacheRepository cacheRepository,
                              OrderRepository orderRepository,
                              SnowFlake snowFlake,
-                             Client client){
+                             Client client,
+                             TestService testService){
         this.cacheRepository = cacheRepository;
         this.orderRepository = orderRepository;
         this.snowFlake = snowFlake;
         this.client = client;
+        this.testService = testService;
     }
 
     @GET
@@ -99,6 +105,17 @@ public class HeartbeatEndpoint {
         return Response.ok("Delay queue: " + vars).build();
     }
 
+
+    @POST
+    @Path("queue_annotation")
+    public Response queueAnnotation(){
+
+        testService.test(new TestBean("norxiva", "haha"));
+
+//        testService.test2("norxiva2","haha2");
+
+        return Response.ok("queueAnnotation: ").build();
+    }
 
 
 
