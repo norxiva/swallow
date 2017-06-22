@@ -53,6 +53,9 @@ public class Order {
     @Column(name = "account_type")
     private AccountType accountType;
 
+    @Column(name = "identity_no", length = 64)
+    private String identityNo;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "bank_acronym", length = 8)
     private BankAcronym bankAcronym;
@@ -107,7 +110,6 @@ public class Order {
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "order")
     private Set<Transaction> transactions = Sets.newHashSet();
-
 
 
 }

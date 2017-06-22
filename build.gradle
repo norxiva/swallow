@@ -18,9 +18,10 @@ version '1.0.0-SNAPSHOT'
 
 allprojects {
 
-    ext.axonVersion = '2.4.6'
+    ext.axonVersion = '3.0.5'
     ext.guavaVersion = '22.0'
-    ext.jesqueVersion = "2.1.2"
+    ext.jacksonVersion = '2.8.8'
+    ext.jesqueVersion = '2.1.2'
     ext.junitVersion = '4.12'
     ext.lombokVersion = '1.16.16'
     ext.dropwizardMetricsVersion = '3.1.4'

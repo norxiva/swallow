@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import my.norxiva.swallow.core.BatchStatus;
+import my.norxiva.swallow.core.BatchType;
 
 import javax.persistence.*;
 
@@ -12,8 +13,8 @@ import javax.persistence.*;
 @Getter
 @ToString
 @Entity
-@Table(name = "payment_order_batch", uniqueConstraints = @UniqueConstraint(columnNames = {"no", "merchant_id"}))
-public class OrderBatch {
+@Table(name = "payment_batch", uniqueConstraints = @UniqueConstraint(columnNames = {"no", "merchant_id"}))
+public class Batch {
 
     @Id
     private Long id;
@@ -26,6 +27,9 @@ public class OrderBatch {
 
     @Column(name = "merchant_id", nullable = false)
     private Long merchantId;
+
+    @Column(name = "batch_type", nullable = false)
+    private BatchType batchType;
 
     private BatchStatus status;
 }

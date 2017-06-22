@@ -1,6 +1,6 @@
 
 server:
-  port: ${CONFIG.PORT}
+  port: ${CONFIG.PORT:9090}
 spring:
   cache:
     jcache:
@@ -29,6 +29,8 @@ spring:
     host: 192.168.100.101
     port: 6379
     timeout: 3000
+  jersey:
+    application-path: swallow/api
 endpoints:
   shutdown:
     enabled: true
