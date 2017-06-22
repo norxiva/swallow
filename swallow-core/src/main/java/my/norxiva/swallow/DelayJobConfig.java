@@ -17,7 +17,7 @@ import java.util.Arrays;
 import java.util.Collection;
 
 @Configuration
-public class JesqueConfiguration {
+public class DelayJobConfig {
 
     @Bean
     public Config jesqueConfig(@Value("${spring.redis.host}") String host,
