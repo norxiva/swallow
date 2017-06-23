@@ -1,11 +1,10 @@
-package my.norxiva.swallow.transaction.query;
+package my.norxiva.swallow.payment.query;
 
 import com.google.common.collect.Sets;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import my.norxiva.swallow.core.*;
-import org.springframework.context.annotation.Configuration;
 
 import javax.persistence.*;
 import java.math.BigDecimal;

@@ -1,8 +1,7 @@
-package my.norxiva.swallow.transaction.api;
+package my.norxiva.swallow.payment.api;
 
 import lombok.*;
 import my.norxiva.swallow.core.*;
-import org.axonframework.commandhandling.TargetAggregateIdentifier;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -10,7 +9,7 @@ import java.time.LocalDateTime;
 @Getter
 @Builder
 @ToString
-public class OrderCreatedEvent {
+public class CreateOrderCommand {
     private Long id;
     private String no;
     private Long merchantId;

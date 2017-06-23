@@ -13,8 +13,8 @@ import javax.ws.rs.core.Response;
 
 @Slf4j
 @Component
-@Path("order")
-public class OrderEndpoint {
+@Path("payment")
+public class PaymentEndpoint {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
@@ -34,7 +34,7 @@ public class OrderEndpoint {
 
     @POST
     @Path("{step}")
-    public Response fast(@PathParam("step") PaymentStep step){
+    public Response fast(@PathParam("step") @NotNull PaymentStep step){
         return Response.ok("").build();
     }
 

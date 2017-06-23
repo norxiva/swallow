@@ -1,4 +1,4 @@
-package my.norxiva.swallow.identity.api;
+package my.norxiva.swallow.payment.api;
 
 import lombok.*;
 
@@ -7,7 +7,7 @@ import lombok.*;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateIdentityCommand {
+public class IdentityCreatedEvent {
     private Long id;
     private String identityNo;
 }

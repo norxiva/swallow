@@ -1,4 +1,4 @@
-package my.norxiva.swallow.identity.query;
+package my.norxiva.swallow.payment.query;
 
 import lombok.Getter;
 import lombok.Setter;

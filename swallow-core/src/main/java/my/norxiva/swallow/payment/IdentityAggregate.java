@@ -1,11 +1,11 @@
-package my.norxiva.swallow.identity;
+package my.norxiva.swallow.payment;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
-import my.norxiva.swallow.identity.api.CreateIdentityCommand;
-import my.norxiva.swallow.identity.api.IdentityCreatedEvent;
+import my.norxiva.swallow.payment.api.CreateIdentityCommand;
+import my.norxiva.swallow.payment.api.IdentityCreatedEvent;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.commandhandling.model.AggregateIdentifier;
 import org.axonframework.eventhandling.EventHandler;

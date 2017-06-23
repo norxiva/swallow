@@ -1,4 +1,4 @@
-package my.norxiva.swallow.transaction;
+package my.norxiva.swallow.payment;
 
 
 import lombok.Getter;
@@ -6,15 +6,11 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import my.norxiva.swallow.core.*;
-import my.norxiva.swallow.transaction.api.CreateOrderCommand;
-import my.norxiva.swallow.transaction.api.OrderCreatedEvent;
-import my.norxiva.swallow.util.SnowFlake;
+import my.norxiva.swallow.payment.api.CreateOrderCommand;
+import my.norxiva.swallow.payment.api.OrderCreatedEvent;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.commandhandling.model.AggregateIdentifier;
-import org.axonframework.config.Configuration;
-import org.axonframework.config.DefaultConfigurer;
 import org.axonframework.eventhandling.EventHandler;
-import org.axonframework.eventsourcing.eventstore.inmemory.InMemoryEventStorageEngine;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
