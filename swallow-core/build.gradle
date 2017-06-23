@@ -17,6 +17,7 @@ dependencies {
 
     compile "net.greghaines:jesque:${jesqueVersion}"
 
+    // axon
 //    compile "org.axonframework:axon-core:${axonVersion}"
 //    compile "org.axonframework:axon-spring:${axonVersion}"
     compile "org.axonframework:axon-spring-boot-autoconfigure:${axonVersion}"
@@ -33,9 +34,11 @@ dependencies {
 
     compile 'javax.validation:validation-api'
 
+    // dbunit test
     compile "com.github.springtestdbunit:spring-test-dbunit:${springTestDbunitVersion}"
     compile "org.dbunit:dbunit:${dbunitVersion}"
 
+    // security
     compile 'org.bouncycastle:bcpkix-jdk15on:1.57'
     compile 'org.bouncycastle:bcmail-jdk15on:1.57'
     compile 'org.bouncycastle:bcpg-jdk15on:1.57'
