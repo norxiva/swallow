@@ -1,11 +1,13 @@
 package my.norxiva.swallow.merchant.query;
 
+import com.google.common.collect.Sets;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import my.norxiva.swallow.core.MerchantStatus;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Setter
 @Getter
@@ -35,6 +37,9 @@ public class Merchant {
     @Enumerated(EnumType.ORDINAL)
     @Column(nullable = false)
     private MerchantStatus status;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "merchant")
+    private Set<MerchantSecret> secrets = Sets.newHashSet();
 
 
 }

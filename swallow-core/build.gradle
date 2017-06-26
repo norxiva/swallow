@@ -1,9 +1,14 @@
 
 dependencies {
+
+    // spring boot
     compile 'org.springframework.boot:spring-boot-starter'
     compile 'org.springframework.boot:spring-boot-starter-cache'
     compile 'org.springframework.boot:spring-boot-starter-data-jpa'
     compile 'org.springframework.boot:spring-boot-starter-data-redis'
+    compile 'org.springframework.boot:spring-boot-starter-data-mongodb'
+
+    // cache
     compile 'javax.cache:cache-api'
     compile 'org.ehcache:ehcache'
     compile 'org.infinispan:infinispan-spring4-embedded'
@@ -11,10 +16,12 @@ dependencies {
     compile 'com.hazelcast:hazelcast'
     compile 'com.hazelcast:hazelcast-spring'
 
+    // data source
     compile 'com.zaxxer:HikariCP'
     compile 'mysql:mysql-connector-java'
     compile 'org.hibernate:hibernate-java8'
 
+    // queue
     compile "net.greghaines:jesque:${jesqueVersion}"
 
     // axon
@@ -24,6 +31,7 @@ dependencies {
 //    compile "org.axonframework:axon-amqp:${axonVersion}"
     compile "org.axonframework:axon-mongo:${axonVersion}"
 
+    // json
     compile "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
     compile "com.fasterxml.jackson.core:jackson-core:${jacksonVersion}"
     compile "com.fasterxml.jackson.core:jackson-annotations:${jacksonVersion}"
@@ -32,6 +40,7 @@ dependencies {
     compile "com.fasterxml.jackson.datatype:jackson-datatype-joda:${jacksonVersion}"
     compile "com.fasterxml.jackson.datatype:jackson-datatype-jdk8:${jacksonVersion}"
 
+    // validation
     compile 'javax.validation:validation-api'
 
     // dbunit test
@@ -44,6 +53,5 @@ dependencies {
     compile 'org.bouncycastle:bcpg-jdk15on:1.57'
     compile 'org.bouncycastle:bctls-jdk15on:1.57'
     compile 'org.bouncycastle:bcprov-ext-jdk15on:1.57'
-
 
 }
