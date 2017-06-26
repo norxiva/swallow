@@ -4,9 +4,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.StringUtils;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.junit.Test;
+import org.springframework.util.StopWatch;
 
 import javax.crypto.Cipher;
 import javax.crypto.NoSuchPaddingException;
+import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import java.io.UnsupportedEncodingException;
 import java.security.*;
@@ -22,46 +24,131 @@ import static org.hamcrest.core.Is.is;
 public class SecurityUtilsTest {
 
     @Test
-    public void testDSA() {
+    public void testGenerateDsaKeyPair() throws GeneralSecurityException {
         KeyPair keyPair = SecurityUtils.generateKeyPair(SecurityUtils.DSA);
+        String base64PrivateKey = Base64.getEncoder().encodeToString(keyPair.getPrivate().getEncoded());
+        String base64PublicKey = Base64.getEncoder().encodeToString(keyPair.getPublic().getEncoded());
+        log.info("\ndsa private key: {}\ndsa public key: {}", base64PrivateKey, base64PublicKey);
+    }
 
-        final String message = getFixedMessage(512, 'a');
+    @Test
+    public void testGenerateRsaKeyPair() throws GeneralSecurityException {
+        KeyPair keyPair = SecurityUtils.generateKeyPair(SecurityUtils.RSA);
+        String base64PrivateKey = Base64.getEncoder().encodeToString(keyPair.getPrivate().getEncoded());
+        String base64PublicKey = Base64.getEncoder().encodeToString(keyPair.getPublic().getEncoded());
+        log.info("\nrsa private key: {}\nrsa public key: {}", base64PrivateKey, base64PublicKey);
+    }
+
+    @Test
+    public void testGenerateAesKey() throws GeneralSecurityException {
+        SecretKey secretKey = SecurityUtils.generateSecretKey(SecurityUtils.AES);
+        log.info("aes secret key: {}", Base64.getEncoder().encodeToString(secretKey.getEncoded()));
+    }
+
+    @Test
+    public void testGenerateDesKey() throws GeneralSecurityException {
+        SecretKey secretKey = SecurityUtils.generateSecretKey(SecurityUtils.DES);
+        log.info("des secret key: {}", Base64.getEncoder().encodeToString(secretKey.getEncoded()));
+    }
+
+
+    @Test
+    public void testDSA() throws GeneralSecurityException {
+
+        String dsaBase64PrivateKey = "MIIBSAIBADCCASkGByqGSM44BAEwggEcAoGBAJT5o82CrdLd7LwFH/Ejf7X/rRlY9+u64k19tGmlp7PcOAPD7JCNgqfUQydAccitk/VxrNsPXkYGtGM6rowMy2Qr//B8EC3pXg4MPTF7kMC992VX6wJ4rSRFnX0+o2fjW/xmCwlSKxNZ1I+E6JLwK/0mN/txzpl+Gue4wXfyMGN/AhUA2NTPlRz34GtOgD+bS5MJMjoetZUCf0aw95G4U5ADk6FlxJKw+B56V4+oPrdYDkqrdgH3A0thSgbw3v/qNcWzb+nq6qOzC4oefxfAxZpjDENMsmRFYPyZ8DESqdM/eEm89jB8gR2yF75Sj5QHt8g2sewVSXIbFixN+ZVabe8VY7YHeQ5RiY1zHA3fKZ2puTV91QOjUbsEFgIUIRTUVMjqvWj1vRlUmu5HntUqn84=";
+        String dsaBase64PublicKey = "MIIBtDCCASkGByqGSM44BAEwggEcAoGBAJT5o82CrdLd7LwFH/Ejf7X/rRlY9+u64k19tGmlp7PcOAPD7JCNgqfUQydAccitk/VxrNsPXkYGtGM6rowMy2Qr//B8EC3pXg4MPTF7kMC992VX6wJ4rSRFnX0+o2fjW/xmCwlSKxNZ1I+E6JLwK/0mN/txzpl+Gue4wXfyMGN/AhUA2NTPlRz34GtOgD+bS5MJMjoetZUCf0aw95G4U5ADk6FlxJKw+B56V4+oPrdYDkqrdgH3A0thSgbw3v/qNcWzb+nq6qOzC4oefxfAxZpjDENMsmRFYPyZ8DESqdM/eEm89jB8gR2yF75Sj5QHt8g2sewVSXIbFixN+ZVabe8VY7YHeQ5RiY1zHA3fKZ2puTV91QOjUbsDgYQAAoGAYPMJrDSWGT611sEbJa5KwH6Jbb8dMaV15y5VZiVSGNEqsw4BHUCLVn2akA4pK8oN5agxDfhq3t3ETePMa0FfhCjQX5dY9xGjwqZqTnWkP6VHfwEEYllik/3HFA9rlPG29CcD6ZsIssvKJkLUu+cLJo5YQuP4wmwN0JWcMgtyOxc=";
+
+        final String message = getFixedMessage(2048, 'a');
         log.info("testing dsa case, original message: {}", message);
 
-        byte[] signature = SecurityUtils.sign(SecurityUtils.DSA, keyPair.getPrivate(),
+        byte[] signature = SecurityUtils.sign(SecurityUtils.DSA, SecurityUtils.getPrivateKey(
+                SecurityUtils.DSA, dsaBase64PrivateKey, BouncyCastleProvider.PROVIDER_NAME),
                 StringUtils.getBytesUtf8(message));
         log.info("testing dsa case, signature: {}", Base64.getEncoder().encodeToString(signature));
 
-        boolean verify = SecurityUtils.verify(SecurityUtils.DSA, keyPair.getPublic(),
+        boolean verify = SecurityUtils.verify(SecurityUtils.DSA, SecurityUtils.getPublicKey(
+                SecurityUtils.DSA, dsaBase64PublicKey, BouncyCastleProvider.PROVIDER_NAME),
                 StringUtils.getBytesUtf8(message), signature);
 
         assertThat(verify, is(true));
     }
 
     @Test
-    public void testRSA() {
-        KeyPair keyPair = SecurityUtils.generateKeyPair(SecurityUtils.RSA);
-        final String message = getFixedMessage(12, 'a');
+    public void testRSA() throws GeneralSecurityException {
+        String base64PrivateKey = "MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAMoiVo8c5uImqFTq7qbCIzNq+9bhwf30CRhayERcgxUSZkyOfk2VlNqVRnebg9FzX/OT9oXXve7zAFsKV/Y2yOGlROnJ30nJlgpbK2HS0gxQwg9TvUJlxhIFTIiW8+MsgN9wL7kMH19IxVLm09zIuhiEnWYI3vMRyPNVKFsz5uNPAgMBAAECgYA5b3RlCfNZA18FchQJ8lQKQjX5IwD6ZiNHdlQ9iIP+stG6oyqkZQJ88bmqNthH5Z64Ga0M7vabNRU+yTuhTIPbiMJTgt9D13czhcc/FTLP2URTH5ZKKPMmGze7/2a+hJDvAGrhgAyvFDrCyRFmjhtgJnTLd+5i9FfM17mmQUgsoQJBAOqVdADyKyS6iwmiONsPEDnMNF8mHLqq+LWZSQXG0Ly/7pTMgZZJCJM4k+5/WbFmZD/RcldmMd2zt/x6jwRsmxcCQQDcln3TAYnHinxAzwLo1WtGmxBEqX1Gn5tv5fVtOxFYo3IBxXSDMm3m4HrXY6qpiv3mpJvIpsShVcy+PH5dFbyJAkEAm9yhLt+4erbXGpeGX0Yq6bwcL/wKqpxek4o9UnE+z6pWwtb+YvQzll3JLHXBCnWVtjFbX2avSzbV0BM+YxomEQJAdjSSwnLNkUctpFEKPxi2fsRzaEfm4OSAl+sDpIAFoJkda8OS1wc8C395dFhtSKM5wdGtxU1Qix/+MmcaU+lk+QJAOz6d88r2NmhMgXVt9xKlqpfQqUT7TBCCfvuoMPqppGHBW3BGz4D/5VWsGcZWGbm/pvgaWcsuPIR2HZsZ+sGXww==";
+        String base64PublicKey = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDKIlaPHObiJqhU6u6mwiMzavvW4cH99AkYWshEXIMVEmZMjn5NlZTalUZ3m4PRc1/zk/aF173u8wBbClf2NsjhpUTpyd9JyZYKWyth0tIMUMIPU71CZcYSBUyIlvPjLIDfcC+5DB9fSMVS5tPcyLoYhJ1mCN7zEcjzVShbM+bjTwIDAQAB";
+
+        final String message = getFixedMessage(12, 'b');
         log.info("testing rsa case, original message: {}", message);
 
-        byte[] encryptBytes = SecurityUtils.encrypt(SecurityUtils.RSA, keyPair.getPublic(), StringUtils.getBytesUtf8(message));
+        byte[] encryptBytes = SecurityUtils.encrypt(SecurityUtils.RSA, SecurityUtils.getPublicKey(
+                SecurityUtils.RSA, base64PublicKey, BouncyCastleProvider.PROVIDER_NAME),
+                StringUtils.getBytesUtf8(message));
         log.info("testing rsa case, encrypt message: {}", Base64.getEncoder().encodeToString(encryptBytes));
 
-        byte[] decryptBytes = SecurityUtils.decrypt(SecurityUtils.RSA, keyPair.getPrivate(), encryptBytes);
+        byte[] decryptBytes = SecurityUtils.decrypt(SecurityUtils.RSA, SecurityUtils.getPrivateKey(
+                SecurityUtils.RSA, base64PrivateKey, BouncyCastleProvider.PROVIDER_NAME), encryptBytes);
         assertThat(message, is(StringUtils.newStringUtf8(decryptBytes)));
 
-        byte[] encryptBytes1 = SecurityUtils.encrypt(SecurityUtils.RSA, keyPair.getPrivate(), StringUtils.getBytesUtf8(message));
+        byte[] encryptBytes1 = SecurityUtils.encrypt(SecurityUtils.RSA, SecurityUtils.getPrivateKey(
+                SecurityUtils.RSA, base64PrivateKey, BouncyCastleProvider.PROVIDER_NAME),
+                StringUtils.getBytesUtf8(message));
         log.info("testing rsa case, encrypt message: {}", Base64.getEncoder().encodeToString(encryptBytes1));
 
-        byte[] decryptBytes1 = SecurityUtils.decrypt(SecurityUtils.RSA, keyPair.getPublic(), encryptBytes1);
+        byte[] decryptBytes1 = SecurityUtils.decrypt(SecurityUtils.RSA, SecurityUtils.getPublicKey(
+                SecurityUtils.RSA, base64PublicKey, BouncyCastleProvider.PROVIDER_NAME), encryptBytes1);
         assertThat(message, is(StringUtils.newStringUtf8(decryptBytes1)));
 
-        String base64Encrypt1 = Base64.getEncoder().encodeToString(encryptBytes1);
-        byte[] signature =  SecurityUtils.sign(SecurityUtils.RSA, keyPair.getPrivate(), StringUtils.getBytesUtf8(base64Encrypt1));
+        byte[] signature = SecurityUtils.sign(SecurityUtils.RSA, SecurityUtils.getPrivateKey(
+                SecurityUtils.RSA, base64PrivateKey, BouncyCastleProvider.PROVIDER_NAME),
+                StringUtils.getBytesUtf8(message));
         log.info("testing rsa case, signature: {}", Base64.getEncoder().encodeToString(signature));
 
-        boolean verify = SecurityUtils.verify(SecurityUtils.RSA, keyPair.getPublic(), StringUtils.getBytesUtf8(base64Encrypt1), signature);
-        assertThat(verify,is(true));
+        boolean verify = SecurityUtils.verify(SecurityUtils.RSA, SecurityUtils.getPublicKey(
+                SecurityUtils.RSA, base64PublicKey, BouncyCastleProvider.PROVIDER_NAME),
+                StringUtils.getBytesUtf8(message), signature);
+        assertThat(verify, is(true));
+    }
+
+    @Test
+    public void testAES() throws GeneralSecurityException {
+
+        String base64Key = "k0PnL+WBMBZje7ZFHV+u7Q==";
+
+        String message = getFixedMessage(512, 'c');
+        log.info("testing aes case, original message: {}", message);
+
+        byte[] encryptBytes = SecurityUtils.encrypt(SecurityUtils.AES,
+                SecurityUtils.getSecretKey(SecurityUtils.AES, base64Key), StringUtils.getBytesUtf8(message));
+        log.info("testing aes case, encrypt message: {}", Base64.getEncoder().encodeToString(encryptBytes));
+
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start("aes");
+        byte[] decryptBytes = SecurityUtils.decrypt(SecurityUtils.AES,
+                SecurityUtils.getSecretKey(SecurityUtils.AES, base64Key), encryptBytes);
+        stopWatch.stop();
+        log.info("{}", stopWatch.getTotalTimeSeconds());
+        assertThat(message, is(StringUtils.newStringUtf8(decryptBytes)));
+    }
+
+    @Test
+    public void testDES() throws GeneralSecurityException, InterruptedException {
+        String base64Key = "42Q0a7kQEBo=";
+
+        String message = getFixedMessage(512, 'c');
+        log.info("testing des case, original message: {}", message);
+
+        byte[] encryptBytes = SecurityUtils.encrypt(SecurityUtils.DES,
+                SecurityUtils.getSecretKey(SecurityUtils.DES, base64Key), StringUtils.getBytesUtf8(message));
+        log.info("testing des case, encrypt message: {}", Base64.getEncoder().encodeToString(encryptBytes));
+
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start("des");
+        byte[] decryptBytes = SecurityUtils.decrypt(SecurityUtils.DES,
+                SecurityUtils.getSecretKey(SecurityUtils.DES, base64Key), encryptBytes);
+        stopWatch.stop();
+        log.info("{}", stopWatch.getTotalTimeSeconds());
+        assertThat(message, is(StringUtils.newStringUtf8(decryptBytes)));
     }
 
     private static void printSet(
