@@ -16,6 +16,7 @@ import javax.ws.rs.core.Response;
 @Path("payment")
 public class PaymentEndpoint {
 
+
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
@@ -28,14 +29,46 @@ public class PaymentEndpoint {
     @GET
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response find(){
+    public Response find(@Valid @NotNull CryptMessage message){
         return Response.ok("Hi, ").build();
     }
 
     @POST
-    @Path("{step}")
-    public Response fast(@PathParam("step") @NotNull PaymentStep step){
+    @Path("apply")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response apply(@Valid @NotNull CryptMessage message){
         return Response.ok("").build();
     }
+
+    @POST
+    @Path("confirm")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response confirm(@Valid @NotNull CryptMessage message){
+        return Response.ok("").build();
+    }
+
+    @POST
+    @Path("cancel")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response cancel(@Valid @NotNull CryptMessage message){
+        return Response.ok("").build();
+    }
+
+    @POST
+    @Path("refund")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response refund(@Valid @NotNull CryptMessage message){
+        return Response.ok("").build();
+    }
+
+
+
+
+
+
 
 }
