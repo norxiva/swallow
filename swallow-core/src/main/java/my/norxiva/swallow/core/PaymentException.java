@@ -2,9 +2,11 @@ package my.norxiva.swallow.core;
 
 public class PaymentException extends RuntimeException {
 
-    private String code;
+    public PaymentException(String message) {
+        super(message);
+    }
 
-
-
-
+    public PaymentException(String message, Throwable cause) {
+        super(message, cause);
+    }
 }
