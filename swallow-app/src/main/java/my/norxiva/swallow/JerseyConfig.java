@@ -3,9 +3,9 @@ package my.norxiva.swallow;
 import my.norxiva.swallow.endpoint.PaymentEndpoint;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.ServerProperties;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 
-@Configuration
+@Component
 public class JerseyConfig extends ResourceConfig {
 
     public JerseyConfig(){
