@@ -1,8 +1,8 @@
 package my.norxiva.swallow.endpoint;
 
 import lombok.extern.slf4j.Slf4j;
-import my.norxiva.swallow.core.PaymentStep;
 import my.norxiva.swallow.core.CryptMessage;
+import my.norxiva.swallow.merchant.query.Merchant;
 import org.springframework.stereotype.Component;
 
 import javax.validation.Valid;
@@ -22,6 +22,8 @@ public class PaymentEndpoint {
     @Produces(MediaType.APPLICATION_JSON)
     public Response create(@Valid @NotNull CryptMessage message){
         log.info("crypt message: {}", message);
+
+
 
         return Response.ok("Hi, ").build();
     }
