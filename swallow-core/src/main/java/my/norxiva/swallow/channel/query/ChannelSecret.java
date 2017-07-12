@@ -1,4 +1,4 @@
-package my.norxiva.swallow.merchant.query;
+package my.norxiva.swallow.channel.query;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -8,10 +8,10 @@ import org.springframework.data.annotation.Id;
 @Setter
 @Getter
 @ToString
-public class MerchantSecret {
+public class ChannelSecret {
 
     @Id
-    private Long merchantId;
+    private Long channelId;
 
     private String base64PrivateKey;
 
@@ -22,5 +22,4 @@ public class MerchantSecret {
     private String cipherAlgorithm;
 
     private String signatureAlgorithm;
-
 }

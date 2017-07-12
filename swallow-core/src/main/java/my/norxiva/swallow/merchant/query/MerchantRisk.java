@@ -5,22 +5,16 @@ import lombok.Setter;
 import lombok.ToString;
 import org.springframework.data.annotation.Id;
 
+import java.util.*;
+
 @Setter
 @Getter
 @ToString
-public class MerchantSecret {
+public class MerchantRisk {
 
     @Id
     private Long merchantId;
 
-    private String base64PrivateKey;
-
-    private String base64PublicKey;
-
-    private String base64SecretKey;
-
-    private String cipherAlgorithm;
-
-    private String signatureAlgorithm;
+    private Map<MerchantRiskTransaction, Set<MerchantRiskQuota>> risks = new HashMap<>();
 
 }
