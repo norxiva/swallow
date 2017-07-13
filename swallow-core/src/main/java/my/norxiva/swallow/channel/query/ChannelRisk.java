@@ -5,8 +5,7 @@ import lombok.Setter;
 import lombok.ToString;
 import org.springframework.data.annotation.Id;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.HashSet;
 import java.util.Set;
 
 @Setter
@@ -17,6 +16,6 @@ public class ChannelRisk {
     @Id
     private Long channelId;
 
-    private Map<ChannelRiskTransaction, Set<ChannelRiskQuota>> risks = new HashMap<>();
+    private Set<ChannelRiskTransaction> transactions = new HashSet<>();
 
 }

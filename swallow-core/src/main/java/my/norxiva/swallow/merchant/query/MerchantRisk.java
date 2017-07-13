@@ -5,7 +5,8 @@ import lombok.Setter;
 import lombok.ToString;
 import org.springframework.data.annotation.Id;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Setter
 @Getter
@@ -15,6 +16,6 @@ public class MerchantRisk {
     @Id
     private Long merchantId;
 
-    private Map<MerchantRiskTransaction, Set<MerchantRiskQuota>> risks = new HashMap<>();
+    private Set<MerchantRiskTransaction> risks = new HashSet<>();
 
 }
